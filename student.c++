@@ -32,6 +32,13 @@ class Student
     this->grades[6] = 60; //Geo
   }
   
+  String subjectText(int index)
+  {
+    String subjects[] = {"math","chemistry","french","english","physics","biology","geology"};
+    String sub = subjects[index];
+    return sub;
+  }
+  
   void printStudentInfo()
   {
     Serial.println("Student details:");
@@ -59,7 +66,7 @@ class Student
     Serial.println("Student's report card:");
   	for(int i = 0; i < number_of_subjects; i++)
   	{
-   	 Serial.println("grade"+String(i+1)+" = "+ String(this->grades[i]));
+   	 Serial.println(this->subjectText(i)+" = "+ String(this->grades[i]));
   	}
   
   	Serial.println("--------------");
@@ -83,6 +90,18 @@ class Student
   {
    	Serial.println("The student's average is " + String( this->calcAverage() )); 
   }
+  
+  void retakeSubject()
+  {
+   	// Code Here
+    for(int i = 0; i<number_of_subjects; i++)
+    {
+      if(this->grades[i] < 50)
+      {
+       Serial.println("Failed "+ this->subjectText(i) + " with grade of "+ String(this->grades[i]));
+      }
+    }
+  }
 };
 
 void setup()
@@ -96,6 +115,7 @@ void setup()
   s3.printStudentReportCard();
   
   s3.printGradeAverage();
+  s3.retakeSubject();
 }
 
 void loop()
