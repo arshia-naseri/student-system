@@ -9,7 +9,8 @@ class Student
   int age;
   int grade_class;
   bool isInternational;
-  int grades[7]; //Array
+  int number_of_subjects = 7;
+  float grades[7]; //Array
   
   //Constructor
   Student(String FirstName, String LastName, long ID, String gender, int age, int grade_class, bool isInternational)
@@ -54,13 +55,33 @@ class Student
   
   void printStudentReportCard()
   {
+    Serial.println("Number of subjects: " + String(number_of_subjects));
     Serial.println("Student's report card:");
-  	for(int i = 0; i<=6; i++)
+  	for(int i = 0; i < number_of_subjects; i++)
   	{
    	 Serial.println("grade"+String(i+1)+" = "+ String(this->grades[i]));
   	}
   
   	Serial.println("--------------");
+  }
+  
+  float calcAverage()
+  {
+   	float sum = 0;
+    
+    for(int i = 0; i < number_of_subjects; i++)
+    {
+      sum = sum + grades[i];
+    }
+    
+    float avg = sum / number_of_subjects;
+    
+    return avg;
+  }
+  
+  void printGradeAverage()
+  {
+   	Serial.println("The student's average is " + String( this->calcAverage() )); 
   }
 };
 
@@ -73,6 +94,8 @@ void setup()
   Student s3("Alex", "R", 9999, "Unknown", 16, 10, false);
   
   s3.printStudentReportCard();
+  
+  s3.printGradeAverage();
 }
 
 void loop()
